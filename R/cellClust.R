@@ -19,11 +19,11 @@ cellClust <- function(obj_in,method="hclust",deepSplit_wgcna=1,min_group_Size_wg
   
   if (!require(flashClust)) install.packages("flashClust",repos = "http://cran.us.r-project.org") 
   require(flashClust)
-  if (!require(WGCNA)){
-    source("http://bioconductor.org/biocLite.R");
-    biocLite(c("impute", "GO.db", "preprocessCore")); 
-    install.packages("WGCNA");
-  }
+  #if (!require(WGCNA)){
+  #  source("http://bioconductor.org/biocLite.R");
+  #  biocLite(c("impute", "GO.db", "preprocessCore")); 
+  #  install.packages("WGCNA");
+  #}
   #require(WGCNA)
   require(dynamicTreeCut)
   labels_to_colors <-function (labels, zeroIsGrey = TRUE, colorSeq = NULL, naColor = "grey", 
