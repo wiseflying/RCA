@@ -89,7 +89,7 @@ cellClust <- function(obj_in,method="hclust",deepSplit_wgcna=1,min_group_Size_wg
         cellTree = flashClust(d,method = "average");     
         dynamicGroups = cutreeDynamic(dendro = cellTree,distM = as.matrix(d),deepSplit = deepSplit_wgcna,
                                       pamStage = FALSE,minClusterSize= min_group_Size_wgcna);
-        dynamicColors = labels2colors(dynamicGroups);
+        dynamicColors = labels_to_colors(dynamicGroups);
         group_labels = matrix(dynamicGroups,nrow = length(names(fpkm_temp)),ncol = 1,list(names(fpkm_temp),c("groupLabel")),byrow=FALSE)
         group_labels = as.data.frame(group_labels)
         group_labels_color = cbind(group_labels,dynamicColors);
