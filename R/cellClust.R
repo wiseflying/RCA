@@ -12,7 +12,7 @@
 #' 
 #' data_obj = cellClust(data_obj);
 #' 
-cellClust <- function(obj_in,method="hclust",deepSplit_wgcna=1,min_group_Size_wgcna=5)
+cellClust <- function(obj_in,method="hclust",deepSplit_wgcna=1,min_group_Size_wgcna=5,global_colors)
 {
   #### 1: reading input ####  
   fpkm_temp = obj_in$fpkm_for_clust;
@@ -26,6 +26,19 @@ cellClust <- function(obj_in,method="hclust",deepSplit_wgcna=1,min_group_Size_wg
   #}
   #require(WGCNA)
   require(dynamicTreeCut)
+  
+standardColors <- function (n = NULL) 
+{
+    if (is.null(n)) 
+        return(.GlobalStandardColors)
+    if ((n > 0) && (n <= length(global_colors))) {
+        return(global_colors[c(1:n)])
+    }
+    else {
+        stop("Invalid number of standard colors requested.")
+    }
+}
+    
   labels_to_colors <-function (labels, zeroIsGrey = TRUE, colorSeq = NULL, naColor = "grey", 
     commonColorCode = TRUE) 
 {
