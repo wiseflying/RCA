@@ -27,12 +27,12 @@ cellClust <- function(obj_in,method="hclust",deepSplit_wgcna=1,min_group_Size_wg
   #require(WGCNA)
   require(dynamicTreeCut)
   
-standardColors <- function (n = NULL) 
+standardColors <- function (n = NULL,gc=global_colors) 
 {
     if (is.null(n)) 
-        return(.GlobalStandardColors)
-    if ((n > 0) && (n <= length(global_colors))) {
-        return(global_colors[c(1:n)])
+        return(gc)
+    if ((n > 0) && (n <= length(gc))) {
+        return(gc[c(1:n)])
     }
     else {
         stop("Invalid number of standard colors requested.")
