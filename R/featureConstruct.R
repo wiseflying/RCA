@@ -50,6 +50,40 @@ featureConstruct <- function(obj_in,method="GlobalPanel",power=4)
         fpkm_for_clust = data12;
  }
   
+ if (method == "GlobalPanel_10x"){
+        data=fpkm_temp;
+        data11=list();
+        for (i in 1:length(sysdata[[1]])){
+        data1 = sysdata[[1]][[i]];
+        d1 = as.dist(1-cor(data1));
+        t1 = hclust(d1,method="average");
+        temp = rownames(data);
+        temp1 = gsub("^.*?_","",temp);
+        temp2 <- strsplit(temp1,"_ENS");
+        temp3 <- paste("",lapply(temp2,"[[",1),sep="");
+        temp4 = intersect(temp3,rownames(data1));
+        temp5 = temp[match(temp4,temp3)];
+        data2 = data1[temp4,];
+        data4 = data[temp5,,drop=FALSE];
+        data3 = data2;
+        data3[data3<=(sysdata$at)[i]] = (sysdata$at)[i];
+        #data5 = cbind(data4,data3);
+        #data6 = cor(data5,method = "pearson");
+        #data6 = as.data.frame(data6);
+        #data7 = data6[(dim(data)[2]+1):dim(data6)[2],1:dim(data)[2]];
+        #data8 = t(cor(data4,data3));
+        data8 = t(corSparse(data4,data3));
+        #data9 = abs(data8)^(sysdata$sp) * sign(data8);
+        data9 = abs(data8)^(power) * sign(data8);
+        data10 = scale(data9,center=TRUE,scale=TRUE);
+        data11[[i]]=data10;
+    }  
+        data12 = as.data.frame(t(cbind(as.data.frame(t(data11[[1]])),as.data.frame(t(data11[[2]])))));    
+        fpkm_for_clust = data12;
+ }
+  
+  
+  
  if (method == "ColonEpitheliumPanel"){
    
       fc = apply(sysdata$ColonEpiPanel,1,function(x) x-median(x));
