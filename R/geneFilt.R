@@ -19,6 +19,10 @@ geneFilt <- function(obj_in, method = "default")
     gene_filter = apply(fpkm_temp,1,function(x) sum(x>1e-3))>=2;
     fpkm_filtered = fpkm_temp[gene_filter,,drop=FALSE];
   }
+  if (method == "10x"){
+    gene_filter = rowSums(fpkm_temp>1)>=2;
+    fpkm_filtered = fpkm_temp[gene_filter,,drop=FALSE];
+  }
   #### 3: writing output ####  
   obj_out = append(obj_in,
               list("fpkm"=fpkm_filtered,
